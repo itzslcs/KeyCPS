@@ -1,0 +1,29 @@
+# Gradle
+.gradle/
+build/
+out/
+classes/
+
+# Fabric Loom
+run/
+remappedSrc/
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse / VS Code
+.classpath
+.project
+.settings/
+bin/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Keep the Gradle wrapper jar
+!gradle/wrapper/gradle-wrapper.jar

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "keycps",
+  "version": "${version}",
+  "name": "KeyCPS",
+  "description": "Shows your key presses (WASD, jump, attack, use) and clicks-per-second, including rebound keys. Movable HUD.",
+  "authors": ["Lucas"],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/keycps"
+  },
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.keyshow.KeyShowMod"]
+  },
+  "mixins": ["keycps.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": ">=${minecraft_version}-",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "icon": "icon.png"
+}

@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.keyshow.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "KeyMappingAccessor",
+    "KeyboardHandlerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

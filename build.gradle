@@ -1,0 +1,64 @@
+plugins {
+    id 'fabric-loom' version "${loom_version}"
+}
+
+// ---------------------------------------------------------------------------
+// Pick which Minecraft version to build.
+//   ./gradlew build                  -> builds the default (mc_version in gradle.properties)
+//   ./gradlew build -Pmc=1.21.5      -> builds for 1.21.5
+// Each supported version has a small file in versions/ with its settings.
+// ---------------------------------------------------------------------------
+def mc = project.findProperty('mc') ?: project.property('mc_version')
+def versionFile = file("versions/${mc}.properties")
+if (!versionFile.exists()) {
+    throw new GradleException("Unsupported Minecraft version '${mc}'. Supported: " +
+            file('versions').list().findAll { it.endsWith('.properties') }
+                    .collect { it - '.properties' }.sort().join(', '))
+}
+def v = new Properties()
+versionFile.withInputStream { v.load(it) }
+
+version = "${project.mod_version}+${mc}"
+group = project.maven_group
+base { archivesName = project.archives_base_name }
+
+// Code shared by every version lives in src/main.
+// Code that differs between Minecraft versions lives in src/<variant>
+// (the variant for each Minecraft version is set in versions/<mc>.properties).
+sourceSets {
+    main {
+        java.srcDir "src/${v.variant}/java"
+        resources.srcDir "src/${v.variant}/resources"
+    }
+}
+
+repositories {
+    // Loom adds the Minecraft and Fabric repositories automatically.
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${mc}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${v.fabric_api_version}"
+}
+
+processResources {
+    def props = [version: project.mod_version, minecraft_version: mc]
+    inputs.properties props
+    filesMatching('fabric.mod.json') { expand props }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+// Name the jar like the ones on Modrinth: keycps-1.21.5.jar
+remapJar {
+    archiveFileName = "keycps-${mc}.jar"
+}
