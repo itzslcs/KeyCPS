@@ -1,10 +1,10 @@
 package com.keyshow;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.network.chat.Component;
-import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,16 +18,16 @@ public class KeyShowMod implements ClientModInitializer {
     public void onInitializeClient() {
         KeyShowConfig.load();
 
-        openConfigKey = Platform.key("key.keycps.open_config", GLFW.GLFW_KEY_RIGHT_SHIFT);
-        moveHudKey = Platform.key("key.keycps.move_hud", GLFW.GLFW_KEY_UNKNOWN);
-        toggleHudKey = Platform.key("key.keycps.toggle_hud", GLFW.GLFW_KEY_UNKNOWN);
+        openConfigKey = Platform.key("key.keycps.open_config", InputConstants.KEY_RSHIFT);
+        moveHudKey = Platform.key("key.keycps.move_hud", InputConstants.UNKNOWN.getValue());
+        toggleHudKey = Platform.key("key.keycps.toggle_hud", InputConstants.UNKNOWN.getValue());
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (openConfigKey.consumeClick()) {
-                client.setScreen(new ConfigScreen(null));
+                Platform.setScreen(client, new ConfigScreen(null));
             }
             while (moveHudKey.consumeClick()) {
-                client.setScreen(new MoveScreen(null));
+                Platform.setScreen(client, new MoveScreen(null));
             }
             while (toggleHudKey.consumeClick()) {
                 KeyShowConfig cfg = KeyShowConfig.get();

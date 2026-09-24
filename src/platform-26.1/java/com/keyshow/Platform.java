@@ -1,14 +1,14 @@
 package com.keyshow;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
-/** Glue for Minecraft 26.x. */
+/** Glue for Minecraft 26.1 - 26.1.2. */
 final class Platform {
     private static final KeyMapping.Category CATEGORY =
             KeyMapping.Category.register(Identifier.fromNamespaceAndPath("keycps", "keybinds"));
@@ -16,8 +16,8 @@ final class Platform {
     private Platform() {
     }
 
-    static KeyMapping key(String name, int glfwKey) {
-        return KeyMappingHelper.registerKeyMapping(new KeyMapping(name, InputConstants.Type.KEYSYM, glfwKey, CATEGORY));
+    static KeyMapping key(String name, int key) {
+        return KeyMappingHelper.registerKeyMapping(new KeyMapping(name, key, CATEGORY));
     }
 
     static void registerHud() {
@@ -27,5 +27,17 @@ final class Platform {
 
     static void chat(Minecraft mc, Component message) {
         mc.gui.getChat().addClientSystemMessage(message);
+    }
+
+    static Screen screen(Minecraft mc) {
+        return mc.screen;
+    }
+
+    static void setScreen(Minecraft mc, Screen screen) {
+        mc.setScreen(screen);
+    }
+
+    static boolean hudHidden(Minecraft mc) {
+        return mc.options.hideGui;
     }
 }

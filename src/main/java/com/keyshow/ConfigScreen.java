@@ -84,11 +84,11 @@ public class ConfigScreen extends BaseScreen {
         int fw = Math.min(100, (this.width - 16 - 2 * GAP) / 3);
         int fx = (this.width - (3 * fw + 2 * GAP)) / 2;
         addRenderableWidget(Button.builder(Component.translatable("keycps.config.move"),
-                b -> this.minecraft.setScreen(new MoveScreen(this)))
+                b -> Platform.setScreen(this.minecraft, new MoveScreen(this)))
                 .bounds(fx, by, fw, BH).tooltip(Tooltip.create(Component.translatable("keycps.config.move.tooltip"))).build());
         addRenderableWidget(Button.builder(Component.translatable("keycps.config.reset"), b -> {
             KeyShowConfig.reset();
-            this.minecraft.setScreen(new ConfigScreen(this.parent));
+            Platform.setScreen(this.minecraft, new ConfigScreen(this.parent));
         }).bounds(fx + fw + GAP, by, fw, BH).build());
         addRenderableWidget(Button.builder(Component.translatable("gui.done"), b -> onClose())
                 .bounds(fx + 2 * (fw + GAP), by, fw, BH).build());
@@ -103,7 +103,7 @@ public class ConfigScreen extends BaseScreen {
     @Override
     public void onClose() {
         KeyShowConfig.save();
-        this.minecraft.setScreen(this.parent);
+        Platform.setScreen(this.minecraft, this.parent);
     }
 
     private static MutableComponent name(String id) {

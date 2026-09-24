@@ -1,8 +1,8 @@
 package com.keyshow;
 
 import com.keyshow.KeyTracker.Tracked;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.glfw.GLFW;
 
 /** Draws the keystrokes + CPS overlay. All sizes are in unscaled HUD pixels; the canvas applies the scale. */
 public class KeyShowHud {
@@ -21,7 +21,7 @@ public class KeyShowHud {
     /** HUD callback: draws in-game unless one of our own screens is already showing the preview. */
     public static void renderInGame(Canvas c) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null || mc.options.hideGui || !KeyShowConfig.get().enabled || mc.screen instanceof BaseScreen) {
+        if (mc.player == null || Platform.hudHidden(mc) || !KeyShowConfig.get().enabled || Platform.screen(mc) instanceof BaseScreen) {
             return;
         }
         draw(c, mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
@@ -122,7 +122,7 @@ public class KeyShowHud {
         }
 
         String label = t.label();
-        if (t == KeyTracker.JUMP && KeyTracker.boundKey(t.mapping()).getValue() == GLFW.GLFW_KEY_SPACE) {
+        if (t == KeyTracker.JUMP && KeyTracker.boundKey(t.mapping()).getValue() == InputConstants.KEY_SPACE) {
             // Draw the space bar as a line, like on a keyboard.
             int lw = w / 3;
             int ly = y + h / 2;

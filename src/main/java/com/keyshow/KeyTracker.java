@@ -8,11 +8,10 @@ import java.util.function.Function;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
-import org.lwjgl.glfw.GLFW;
 
 /**
  * Tracks which keys are held and how often they fire.
- * Everything is counted from GLFW input events, so no click is lost between frames, and
+ * Everything is counted from input events, so no click is lost between frames, and
  * holding a keyboard key counts the OS key repeat too (aaaaaaaa).
  */
 public class KeyTracker {
@@ -84,27 +83,27 @@ public class KeyTracker {
     public static void onKeyEvent(int key, int action) {
         Minecraft mc = Minecraft.getInstance();
         // Only count in-game: typing in chat shouldn't bump the counters.
-        if (mc.options == null || mc.screen != null || (action != GLFW.GLFW_PRESS && action != GLFW.GLFW_REPEAT)) {
+        if (mc.options == null || Platform.screen(mc) != null || (action != InputConstants.PRESS && action != InputConstants.REPEAT)) {
             return;
         }
-        count(InputConstants.Type.KEYSYM, key);
+        count(false, key);
     }
 
     /** Called from MouseHandlerMixin for every mouse button event. */
     public static void onMouseEvent(int button, int action) {
         Minecraft mc = Minecraft.getInstance();
         // Count in-game and in our own screens (so the preview shows your CPS), not in inventories or menus.
-        if (mc.options == null || action != GLFW.GLFW_PRESS || mc.screen != null && !(mc.screen instanceof BaseScreen)) {
+        if (mc.options == null || action != InputConstants.PRESS || Platform.screen(mc) != null && !(Platform.screen(mc) instanceof BaseScreen)) {
             return;
         }
-        count(InputConstants.Type.MOUSE, button);
+        count(true, button);
     }
 
-    private static void count(InputConstants.Type type, int value) {
+    private static void count(boolean mouse, int value) {
         long now = System.nanoTime();
         for (Tracked t : ALL) {
             InputConstants.Key k = boundKey(t.mapping());
-            if (k.getType() == type && k.getValue() == value) {
+            if ((k.getType() == InputConstants.Type.MOUSE) == mouse && k.getValue() == value) {
                 t.rate.record(now);
             }
         }
@@ -112,23 +111,26 @@ public class KeyTracker {
 
     static String keyLabel(KeyMapping binding) {
         InputConstants.Key key = boundKey(binding);
+        // InputConstants rather than GLFW: 26.3 switched to SDL and renumbered every key.
         if (key.getType() == InputConstants.Type.MOUSE) {
             return switch (key.getValue()) {
-                case 0 -> "LMB";
-                case 1 -> "RMB";
-                case 2 -> "MMB";
-                default -> "M" + (key.getValue() + 1);
+                case InputConstants.MOUSE_BUTTON_LEFT -> "LMB";
+                case InputConstants.MOUSE_BUTTON_RIGHT -> "RMB";
+                case InputConstants.MOUSE_BUTTON_MIDDLE -> "MMB";
+                default -> "M" + (key.getValue() - InputConstants.MOUSE_BUTTON_LEFT + 1);
             };
         }
+        if (key.equals(InputConstants.UNKNOWN)) {
+            return "-";
+        }
         return switch (key.getValue()) {
-            case GLFW.GLFW_KEY_UNKNOWN -> "-";
-            case GLFW.GLFW_KEY_SPACE -> "Space";
-            case GLFW.GLFW_KEY_ENTER -> "Enter";
-            case GLFW.GLFW_KEY_TAB -> "Tab";
-            case GLFW.GLFW_KEY_CAPS_LOCK -> "Caps";
-            case GLFW.GLFW_KEY_LEFT_SHIFT, GLFW.GLFW_KEY_RIGHT_SHIFT -> "Shift";
-            case GLFW.GLFW_KEY_LEFT_CONTROL, GLFW.GLFW_KEY_RIGHT_CONTROL -> "Ctrl";
-            case GLFW.GLFW_KEY_LEFT_ALT, GLFW.GLFW_KEY_RIGHT_ALT -> "Alt";
+            case InputConstants.KEY_SPACE -> "Space";
+            case InputConstants.KEY_RETURN -> "Enter";
+            case InputConstants.KEY_TAB -> "Tab";
+            case InputConstants.KEY_CAPSLOCK -> "Caps";
+            case InputConstants.KEY_LSHIFT, InputConstants.KEY_RSHIFT -> "Shift";
+            case InputConstants.KEY_LCONTROL, InputConstants.KEY_RCONTROL -> "Ctrl";
+            case InputConstants.KEY_LALT, InputConstants.KEY_RALT -> "Alt";
             default -> {
                 String name = key.getDisplayName().getString();
                 yield name.length() > 6 ? name.substring(0, 6) : name.toUpperCase();

@@ -1,10 +1,10 @@
 package com.keyshow;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
 /** Glue for the Minecraft versions this folder is built for (see versions/*.properties). */
@@ -13,8 +13,8 @@ final class Platform {
     private Platform() {
     }
 
-    static KeyMapping key(String name, int glfwKey) {
-        return KeyBindingHelper.registerKeyBinding(new KeyMapping(name, InputConstants.Type.KEYSYM, glfwKey, CATEGORY));
+    static KeyMapping key(String name, int key) {
+        return KeyBindingHelper.registerKeyBinding(new KeyMapping(name, key, CATEGORY));
     }
 
     static void registerHud() {
@@ -24,5 +24,17 @@ final class Platform {
 
     static void chat(Minecraft mc, Component message) {
         mc.gui.getChat().addMessage(message);
+    }
+
+    static Screen screen(Minecraft mc) {
+        return mc.screen;
+    }
+
+    static void setScreen(Minecraft mc, Screen screen) {
+        mc.setScreen(screen);
+    }
+
+    static boolean hudHidden(Minecraft mc) {
+        return mc.options.hideGui;
     }
 }

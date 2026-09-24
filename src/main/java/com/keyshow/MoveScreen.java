@@ -75,6 +75,6 @@ public class MoveScreen extends BaseScreen {
     @Override
     public void onClose() {
         KeyShowConfig.save();
-        this.minecraft.setScreen(this.parent);
+        Platform.setScreen(this.minecraft, this.parent);
     }
 }

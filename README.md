@@ -56,7 +56,8 @@ src/platform-*/         key registration, HUD hook and chat for a range of versi
 src/input-*/            mouse/keyboard event hooks and the base screen for a range of versions
 src/gg-posestack/       drawing adapter for 1.21 – 1.21.5
 src/gg-matrix/          drawing adapter for 1.21.6 – 1.21.11
-src/mc26.1/             all of the above for 26.x (unobfuscated, renamed rendering API)
+src/mc26.1/             drawing, input hooks and base screen for 26.x (unobfuscated, renamed rendering API)
+src/platform-26.*/      key registration, HUD hook, screens and chat for 26.1.x and 26.2+
 versions/               one small settings file per Minecraft version
 tools/gen_lang.py       generates the translation files
 ```
