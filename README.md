@@ -1,6 +1,6 @@
 # KeyCPS
 
-A clean keystrokes and CPS overlay for Minecraft (Fabric, client-side).
+A clean keystrokes and CPS overlay for Minecraft (Fabric / Quilt, client-side).
 
 KeyCPS shows your movement keys, jump, attack and use — lit up as you press them — with a live
 clicks-per-second count, so you can watch your click speed while you play instead of guessing.
@@ -25,7 +25,7 @@ clicks-per-second count, so you can watch your click speed while you play instea
 
 ## Download
 
-Get it from **[Modrinth](https://modrinth.com/mod/keycps)**. Requires Fabric Loader and Fabric API.
+Get it from **[Modrinth](https://modrinth.com/mod/keycps)**. Works on **Fabric** and **Quilt**; requires Fabric API.
 Mod Menu is optional.
 
 | Minecraft | Side |
