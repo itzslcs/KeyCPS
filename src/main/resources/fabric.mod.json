@@ -3,22 +3,33 @@
   "id": "keycps",
   "version": "${version}",
   "name": "KeyCPS",
-  "description": "Shows your key presses (WASD, jump, attack, use) and clicks-per-second, including rebound keys. Movable HUD.",
+  "description": "A clean keystrokes and CPS overlay: WASD, jump, sneak, sprint, attack and use, with live clicks-per-second (keyboard key-repeat included). Follows your key bindings, fully configurable, draggable.",
   "authors": ["Lucas"],
   "contact": {
     "homepage": "https://modrinth.com/mod/keycps"
   },
   "license": "MIT",
+  "icon": "icon.png",
   "environment": "client",
   "entrypoints": {
-    "client": ["com.keyshow.KeyShowMod"]
+    "client": ["com.keyshow.KeyShowMod"],
+    "modmenu": ["com.keyshow.ModMenuIntegration"]
   },
   "mixins": ["keycps.mixins.json"],
   "depends": {
     "fabricloader": ">=0.15.0",
-    "minecraft": ">=${minecraft_version}-",
-    "java": ">=21",
+    "minecraft": "${minecraft_version}",
+    "java": ">=${java_version}",
     "fabric-api": "*"
   },
-  "icon": "icon.png"
+  "suggests": {
+    "modmenu": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.modrinth": "https://modrinth.com/mod/keycps"
+      }
+    }
+  }
 }

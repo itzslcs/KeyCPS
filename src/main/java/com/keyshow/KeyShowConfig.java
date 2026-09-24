@@ -12,26 +12,42 @@ public class KeyShowConfig {
     private static final Path PATH = FabricLoader.getInstance().getConfigDir().resolve("keycps.json");
     private static KeyShowConfig INSTANCE = new KeyShowConfig();
 
+    public boolean enabled = true;
+    /** Top-left corner of the HUD in GUI pixels. New installs start in the top-left corner. */
+    public int x = 4;
+    public int y = 4;
     public float scale = 1.0F;
-    public int offsetX = 0;
-    public int offsetY = 0;
-    public boolean compactLayout = false;
-    public boolean showWasd = true;
+
+    public boolean showMovement = true;
     public boolean showJump = true;
+    public boolean showMouse = true;
     public boolean showCps = true;
-    public boolean showDivider = true;
-    public boolean combineCps = false;
+    public boolean showSneakSprint = false;
+    public boolean showKeyRates = false;
+    /** CPS at or above this turns the counter red. 0 = off. */
+    public int cpsWarn = 0;
+
     public boolean showBg = true;
-    public boolean useColorBg = false;
-    public boolean colorPressedText = false;
-    public int bgAlpha = 128;
+    public int bgAlpha = 110;
     public int bgColor = 0x000000;
     public int textColor = 0xFFFFFF;
-    public int cpsColor = 0xFFFFFF;
-    public int pressedColor = 0x000000;
+    public int pressedFill = 0xFFFFFF;
+    public boolean rounded = true;
+    public boolean textShadow = true;
+    public boolean rainbow = false;
+    public boolean fade = true;
+
+    public boolean welcomeShown = false;
 
     public static KeyShowConfig get() {
         return INSTANCE;
+    }
+
+    public static void reset() {
+        KeyShowConfig fresh = new KeyShowConfig();
+        fresh.welcomeShown = INSTANCE.welcomeShown;
+        INSTANCE = fresh;
+        save();
     }
 
     public static void load() {

@@ -1,5 +1,8 @@
 plugins {
-    id 'fabric-loom' version "${loom_version}"
+    // Same Loom jar, two flavours: "fabric-loom" remaps obfuscated Minecraft (1.21.x),
+    // "net.fabricmc.fabric-loom" is for unobfuscated Minecraft (26.x).
+    id 'fabric-loom' version "${loom_version}" apply false
+    id 'net.fabricmc.fabric-loom' version "${loom_version}" apply false
 }
 
 // ---------------------------------------------------------------------------
@@ -17,6 +20,10 @@ if (!versionFile.exists()) {
 }
 def v = new Properties()
 versionFile.withInputStream { v.load(it) }
+def unobf = v.unobfuscated == 'true'
+def javaVersion = (v.java ?: '21') as int
+
+apply plugin: unobf ? 'net.fabricmc.fabric-loom' : 'fabric-loom'
 
 version = "${project.mod_version}+${mc}"
 group = project.maven_group
@@ -24,41 +31,53 @@ base { archivesName = project.archives_base_name }
 
 // Code shared by every version lives in src/main.
 // Code that differs between Minecraft versions lives in src/<variant>
-// (the variant for each Minecraft version is set in versions/<mc>.properties).
+// (the folders for each Minecraft version are listed in versions/<mc>.properties).
 sourceSets {
     main {
-        java.srcDir "src/${v.variant}/java"
-        resources.srcDir "src/${v.variant}/resources"
+        v.variant.split(',').each {
+            java.srcDir "src/${it.trim()}/java"
+            resources.srcDir "src/${it.trim()}/resources"
+        }
     }
 }
 
 repositories {
     // Loom adds the Minecraft and Fabric repositories automatically.
+    maven { url = 'https://maven.terraformersmc.com/releases/' } // Mod Menu
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${mc}"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${v.fabric_api_version}"
+    if (unobf) {
+        implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+        implementation "net.fabricmc.fabric-api:fabric-api:${v.fabric_api_version}"
+        compileOnly "com.terraformersmc:modmenu:${v.modmenu_version}"
+        localRuntime "com.terraformersmc:modmenu:${v.modmenu_version}" // only in ./gradlew runClient
+    } else {
+        mappings loom.officialMojangMappings()
+        modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+        modImplementation "net.fabricmc.fabric-api:fabric-api:${v.fabric_api_version}"
+        modCompileOnly "com.terraformersmc:modmenu:${v.modmenu_version}"
+        modLocalRuntime "com.terraformersmc:modmenu:${v.modmenu_version}" // only in ./gradlew runClient
+    }
 }
 
 processResources {
-    def props = [version: project.mod_version, minecraft_version: mc]
+    def props = [version: project.mod_version, minecraft_version: mc, java_version: javaVersion]
     inputs.properties props
     filesMatching('fabric.mod.json') { expand props }
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 21
+    it.options.release = javaVersion
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.toVersion(javaVersion)
+    targetCompatibility = JavaVersion.toVersion(javaVersion)
 }
 
-// Name the jar like the ones on Modrinth: keycps-1.21.5.jar
-remapJar {
-    archiveFileName = "keycps-${mc}.jar"
+// Name the jar like the ones on Modrinth: keycps-1.6+1.21.5.jar
+tasks.named(unobf ? 'jar' : 'remapJar') {
+    archiveFileName = "keycps-${project.version}.jar"
 }
