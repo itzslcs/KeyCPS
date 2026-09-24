@@ -46,6 +46,7 @@ public class ConfigScreen extends BaseScreen {
         w.add(toggle("jump", cfg.showJump, v -> cfg.showJump = v));
         w.add(toggle("mouse", cfg.showMouse, v -> cfg.showMouse = v));
         w.add(toggle("cps", cfg.showCps, v -> cfg.showCps = v));
+        w.add(toggle("mouse_labels", cfg.alwaysMouseLabels, v -> cfg.alwaysMouseLabels = v));
         w.add(toggle("sneak_sprint", cfg.showSneakSprint, v -> cfg.showSneakSprint = v));
         w.add(toggle("key_rates", cfg.showKeyRates, v -> cfg.showKeyRates = v));
         w.add(new Slider("cps_warn", 0, 30, 1, cfg.cpsWarn, v -> cfg.cpsWarn = (int) v,

@@ -38,6 +38,8 @@
   "keycps.config.fade.tooltip": "押したときにキーがなめらかに光ります。",
   "keycps.config.rainbow": "虹色の文字",
   "keycps.config.rainbow.tooltip": "文字が虹色に変化します。",
+  "keycps.config.mouse_labels": "常に LMB / RMB",
+  "keycps.config.mouse_labels.tooltip": "攻撃と使用がキーボードに割り当てられていても LMB / RMB と表示します。CPS はそのキー（キーリピート含む）を数えます。",
   "keycps.config.move": "HUD を移動",
   "keycps.config.move.tooltip": "HUD を好きな場所へドラッグ。端と中央に吸着します。",
   "keycps.config.reset": "すべてリセット",

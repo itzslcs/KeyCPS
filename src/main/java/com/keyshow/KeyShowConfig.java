@@ -24,6 +24,8 @@ public class KeyShowConfig {
     public boolean showCps = true;
     public boolean showSneakSprint = false;
     public boolean showKeyRates = false;
+    /** Label attack/use as LMB/RMB even when bound to keyboard keys (CPS still counts those keys). */
+    public boolean alwaysMouseLabels = false;
     /** CPS at or above this turns the counter red. 0 = off. */
     public int cpsWarn = 0;
 

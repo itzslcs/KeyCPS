@@ -38,6 +38,8 @@
   "keycps.config.fade.tooltip": "Tuşlar basıldığında yumuşakça parlasın.",
   "keycps.config.rainbow": "Gökkuşağı yazı",
   "keycps.config.rainbow.tooltip": "Yazı gökkuşağı renklerinde dönsün.",
+  "keycps.config.mouse_labels": "Her zaman LMB / RMB",
+  "keycps.config.mouse_labels.tooltip": "Saldır ve kullan tuşları klavyede olsa bile LMB ve RMB yazsın. CPS yine de bu tuşları, tekrarlar dahil sayar.",
   "keycps.config.move": "HUD'u taşı",
   "keycps.config.move.tooltip": "HUD'u istediğin yere sürükle. Kenarlara ve merkeze yapışır.",
   "keycps.config.reset": "Hepsini sıfırla",

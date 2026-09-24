@@ -38,6 +38,8 @@
   "keycps.config.fade.tooltip": "按下时按键平滑地亮起和熄灭。",
   "keycps.config.rainbow": "彩虹文字",
   "keycps.config.rainbow.tooltip": "文字循环显示彩虹颜色。",
+  "keycps.config.mouse_labels": "始终显示 LMB / RMB",
+  "keycps.config.mouse_labels.tooltip": "即使攻击和使用绑定在键盘按键上，也显示为 LMB 和 RMB。CPS 仍会统计这些按键，包括按键重复。",
   "keycps.config.move": "移动 HUD",
   "keycps.config.move.tooltip": "将 HUD 拖到任意位置，会吸附到边缘和中心。",
   "keycps.config.reset": "全部重置",

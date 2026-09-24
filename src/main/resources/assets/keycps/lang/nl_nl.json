@@ -38,6 +38,8 @@
   "keycps.config.fade.tooltip": "Toetsen vloeiend laten oplichten en uitfaden.",
   "keycps.config.rainbow": "Regenboogtekst",
   "keycps.config.rainbow.tooltip": "Laat de tekst door de regenboog kleuren.",
+  "keycps.config.mouse_labels": "Altijd LMB / RMB",
+  "keycps.config.mouse_labels.tooltip": "Toon LMB en RMB op aanvallen en gebruiken, ook als ze op toetsenbordtoetsen staan. De CPS telt die toetsen nog steeds, inclusief herhaling.",
   "keycps.config.move": "HUD verplaatsen",
   "keycps.config.move.tooltip": "Sleep de HUD overal heen. Hij klikt vast aan randen en midden.",
   "keycps.config.reset": "Alles resetten",

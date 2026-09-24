@@ -38,6 +38,8 @@
   "keycps.config.fade.tooltip": "Fade keys smoothly in and out when pressed.",
   "keycps.config.rainbow": "Rainbow Text",
   "keycps.config.rainbow.tooltip": "Cycle the text through the rainbow.",
+  "keycps.config.mouse_labels": "Always LMB / RMB",
+  "keycps.config.mouse_labels.tooltip": "Label the attack and use keys LMB and RMB even when they're bound to keyboard keys. The CPS still counts those keys, key repeat included.",
   "keycps.config.move": "Move HUD",
   "keycps.config.move.tooltip": "Drag the HUD anywhere. It snaps to the edges and centre.",
   "keycps.config.reset": "Reset All",

@@ -38,6 +38,8 @@
   "keycps.config.fade.tooltip": "Płynnie podświetlaj i wygaszaj klawisze.",
   "keycps.config.rainbow": "Tęczowy tekst",
   "keycps.config.rainbow.tooltip": "Tekst przechodzi przez kolory tęczy.",
+  "keycps.config.mouse_labels": "Zawsze LMB / RMB",
+  "keycps.config.mouse_labels.tooltip": "Podpisuj atak i użycie jako LMB i RMB, nawet gdy są na klawiaturze. CPS nadal liczy te klawisze, łącznie z powtarzaniem.",
   "keycps.config.move": "Przesuń HUD",
   "keycps.config.move.tooltip": "Przeciągnij HUD w dowolne miejsce. Przyciąga się do krawędzi i środka.",
   "keycps.config.reset": "Resetuj wszystko",

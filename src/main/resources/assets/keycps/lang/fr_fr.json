@@ -38,6 +38,8 @@
   "keycps.config.fade.tooltip": "Animer les touches en douceur quand elles sont pressées.",
   "keycps.config.rainbow": "Texte arc-en-ciel",
   "keycps.config.rainbow.tooltip": "Faire défiler le texte dans les couleurs de l'arc-en-ciel.",
+  "keycps.config.mouse_labels": "Toujours LMB / RMB",
+  "keycps.config.mouse_labels.tooltip": "Affiche LMB et RMB sur les touches d'attaque et d'utilisation même si elles sont sur le clavier. Les CPS comptent toujours ces touches, répétition comprise.",
   "keycps.config.move": "Déplacer le HUD",
   "keycps.config.move.tooltip": "Déplacez le HUD n'importe où. Il s'aimante aux bords et au centre.",
   "keycps.config.reset": "Tout réinitialiser",

@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.6.1
+
+**New**
+- **Always LMB / RMB** setting (off by default): the attack and use keys are always labelled LMB and
+  RMB, even when they're bound to keyboard keys. The CPS still counts those keyboard presses,
+  key repeat included.
+- Quilt is now officially supported.
+
+## 1.6.1
+
+**New**
+- **Always LMB / RMB** setting (off by default): the attack and use keys are always labelled LMB and
+  RMB, even when they're bound to keyboard keys. The CPS still counts those keyboard presses,
+  key repeat included.
+- Quilt is now officially supported.
+
 ## 1.6
 
 **New**

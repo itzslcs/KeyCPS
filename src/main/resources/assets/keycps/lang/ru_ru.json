@@ -38,6 +38,8 @@
   "keycps.config.fade.tooltip": "Плавная подсветка клавиш при нажатии.",
   "keycps.config.rainbow": "Радужный текст",
   "keycps.config.rainbow.tooltip": "Текст переливается цветами радуги.",
+  "keycps.config.mouse_labels": "Всегда LMB / RMB",
+  "keycps.config.mouse_labels.tooltip": "Подписывать атаку и использование как LMB и RMB, даже если они на клавиатуре. CPS всё равно считает эти клавиши, включая автоповтор.",
   "keycps.config.move": "Переместить HUD",
   "keycps.config.move.tooltip": "Перетащите HUD куда угодно. Он прилипает к краям и центру.",
   "keycps.config.reset": "Сбросить всё",

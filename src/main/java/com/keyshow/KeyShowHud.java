@@ -77,7 +77,7 @@ public class KeyShowHud {
     private static int width(Canvas c, KeyShowConfig cfg) {
         int w = 3 * K + 2 * G;
         if (cfg.showMouse) {
-            int label = Math.max(c.width(KeyTracker.ATTACK.label()), c.width(KeyTracker.USE.label()));
+            int label = Math.max(c.width(label(cfg, KeyTracker.ATTACK)), c.width(label(cfg, KeyTracker.USE)));
             w = Math.max(w, 2 * (label + 8) + G);
         }
         if (cfg.showSneakSprint) {
@@ -121,7 +121,7 @@ public class KeyShowHud {
             secondary = String.valueOf(rate);
         }
 
-        String label = t.label();
+        String label = label(cfg, t);
         if (t == KeyTracker.JUMP && KeyTracker.boundKey(t.mapping()).getValue() == InputConstants.KEY_SPACE) {
             // Draw the space bar as a line, like on a keyboard.
             int lw = w / 3;
@@ -140,6 +140,12 @@ public class KeyShowHud {
             c.centered(secondary, 0, 0, secondaryColor, shadow);
             c.pop();
         }
+    }
+
+    private static String label(KeyShowConfig cfg, Tracked t) {
+        if (cfg.alwaysMouseLabels && t == KeyTracker.ATTACK) return "LMB";
+        if (cfg.alwaysMouseLabels && t == KeyTracker.USE) return "RMB";
+        return t.label();
     }
 
     /** A filled box, optionally with the corner pixels cut off so it looks rounded. */

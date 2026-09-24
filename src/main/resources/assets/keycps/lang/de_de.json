@@ -38,6 +38,8 @@
   "keycps.config.fade.tooltip": "Tasten beim Drücken sanft ein- und ausblenden.",
   "keycps.config.rainbow": "Regenbogentext",
   "keycps.config.rainbow.tooltip": "Den Text in Regenbogenfarben wechseln lassen.",
+  "keycps.config.mouse_labels": "Immer LMB / RMB",
+  "keycps.config.mouse_labels.tooltip": "Angriffs- und Benutzen-Taste immer als LMB und RMB beschriften, auch wenn sie auf der Tastatur liegen. Die CPS zählen trotzdem diese Tasten, inklusive Tastenwiederholung.",
   "keycps.config.move": "HUD verschieben",
   "keycps.config.move.tooltip": "Das HUD beliebig verschieben. Es rastet an Rändern und Mitte ein.",
   "keycps.config.reset": "Alles zurücksetzen",

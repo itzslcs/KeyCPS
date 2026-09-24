@@ -38,6 +38,8 @@
   "keycps.config.fade.tooltip": "누를 때 키가 부드럽게 켜지고 꺼집니다.",
   "keycps.config.rainbow": "무지개 글자",
   "keycps.config.rainbow.tooltip": "글자가 무지개 색으로 바뀝니다.",
+  "keycps.config.mouse_labels": "항상 LMB / RMB",
+  "keycps.config.mouse_labels.tooltip": "공격과 사용이 키보드 키에 할당되어 있어도 LMB와 RMB로 표시합니다. CPS는 여전히 해당 키를 반복 입력까지 셉니다.",
   "keycps.config.move": "HUD 이동",
   "keycps.config.move.tooltip": "HUD를 원하는 곳으로 끌어 놓으세요. 가장자리와 중앙에 맞춰집니다.",
   "keycps.config.reset": "모두 초기화",

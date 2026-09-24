@@ -38,6 +38,8 @@
   "keycps.config.fade.tooltip": "As teclas acendem e apagam suavemente.",
   "keycps.config.rainbow": "Texto arco-íris",
   "keycps.config.rainbow.tooltip": "O texto passa pelas cores do arco-íris.",
+  "keycps.config.mouse_labels": "Sempre LMB / RMB",
+  "keycps.config.mouse_labels.tooltip": "Mostra LMB e RMB em atacar e usar mesmo quando estão em teclas do teclado. O CPS continua contando essas teclas, incluindo a repetição.",
   "keycps.config.move": "Mover HUD",
   "keycps.config.move.tooltip": "Arraste o HUD para qualquer lugar. Ele se alinha às bordas e ao centro.",
   "keycps.config.reset": "Redefinir tudo",
