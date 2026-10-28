@@ -28,6 +28,7 @@ public class ConfigScreen extends BaseScreen {
     private static final int GAP = 4;
 
     private final Screen parent;
+    private final HudDrag drag = new HudDrag();
     private int titleY;
 
     public ConfigScreen(Screen parent) {
@@ -42,6 +43,11 @@ public class ConfigScreen extends BaseScreen {
         w.add(toggle("enabled", cfg.enabled, v -> cfg.enabled = v));
         w.add(new Slider("scale", 0.5, 3.0, 0.05, cfg.scale, v -> cfg.scale = (float) v,
                 v -> Component.literal(Math.round(v * 100) + "%")));
+        // Position sliders; the HUD is clamped to the screen when drawn, so the range only needs to be roughly right.
+        w.add(new Slider("pos_x", 0, Math.max(1, this.width - KeyShowHud.lastW), 1, cfg.x, v -> cfg.x = (int) v,
+                v -> Component.literal(String.valueOf((int) v))));
+        w.add(new Slider("pos_y", 0, Math.max(1, this.height - KeyShowHud.lastH), 1, cfg.y, v -> cfg.y = (int) v,
+                v -> Component.literal(String.valueOf((int) v))));
         w.add(toggle("movement", cfg.showMovement, v -> cfg.showMovement = v));
         w.add(toggle("jump", cfg.showJump, v -> cfg.showJump = v));
         w.add(toggle("mouse", cfg.showMouse, v -> cfg.showMouse = v));
@@ -99,6 +105,24 @@ public class ConfigScreen extends BaseScreen {
     protected void drawOverlay(Canvas c) {
         KeyShowHud.draw(c, this.width, this.height);
         c.centered(this.title.getString(), this.width / 2, titleY, 0xFFFFFFFF, true);
+    }
+
+    // The preview can be dragged here too, wherever it isn't covered by a button.
+    @Override
+    protected boolean onMousePress(double mx, double my) {
+        return drag.press(mx, my);
+    }
+
+    @Override
+    protected boolean onMouseDrag(double mx, double my) {
+        return drag.drag(mx, my, this.width, this.height);
+    }
+
+    @Override
+    protected void onMouseRelease() {
+        if (drag.release()) {
+            rebuildWidgets(); // so the X / Y sliders show the new position
+        }
     }
 
     @Override

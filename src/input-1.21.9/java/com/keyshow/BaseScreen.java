@@ -39,7 +39,7 @@ public abstract class BaseScreen extends Screen {
 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        return super.mouseClicked(event, doubleClick) || event.button() == 0 && onMousePress(event.x(), event.y());
+        return super.mouseClicked(event, doubleClick) || event.button() == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT && onMousePress(event.x(), event.y());
     }
 
     @Override

@@ -1,12 +1,15 @@
 # Changelog
 
-## 1.6.1
+## 1.6.2
+
+**Fixed**
+- **The HUD couldn't be moved on Minecraft 26.3** (#1). 26.3 numbers mouse buttons differently, so
+  left-clicking the HUD in the Move screen did nothing. Dragging works again on every version.
+- An unbound attack/use key no longer counts presses of keys Minecraft doesn't recognise (some media keys).
 
 **New**
-- **Always LMB / RMB** setting (off by default): the attack and use keys are always labelled LMB and
-  RMB, even when they're bound to keyboard keys. The CPS still counts those keyboard presses,
-  key repeat included.
-- Quilt is now officially supported.
+- **X Position / Y Position** sliders in the settings, so you can place the HUD without dragging.
+- The HUD preview on the settings screen can be dragged directly, wherever a button isn't covering it.
 
 ## 1.6.1
 

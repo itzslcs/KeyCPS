@@ -195,7 +195,25 @@ L = {
   "흰색", "검은색", "회색", "빨간색", "주황색", "노란색", "연두색", "초록색", "청록색", "파란색", "보라색", "분홍색"],
 }
 
-def entries(v):
+# Added in 1.6.2: (X position, Y position, tooltip for both)
+POS = {
+"en_us": ["X Position", "Y Position", "Where the HUD sits on screen. You can also drag the preview, or use Move HUD."],
+"de_de": ["X-Position", "Y-Position", "Wo das HUD auf dem Bildschirm sitzt. Du kannst die Vorschau auch ziehen oder HUD verschieben nutzen."],
+"fr_fr": ["Position X", "Position Y", "Emplacement du HUD à l'écran. Vous pouvez aussi faire glisser l'aperçu ou utiliser Déplacer le HUD."],
+"es_es": ["Posición X", "Posición Y", "Dónde está el HUD en la pantalla. También puedes arrastrar la vista previa o usar Mover HUD."],
+"pt_br": ["Posição X", "Posição Y", "Onde o HUD fica na tela. Você também pode arrastar a prévia ou usar Mover HUD."],
+"it_it": ["Posizione X", "Posizione Y", "Dove si trova l'HUD sullo schermo. Puoi anche trascinare l'anteprima o usare Sposta HUD."],
+"nl_nl": ["X-positie", "Y-positie", "Waar de HUD op het scherm staat. Je kunt ook de voorbeeldweergave slepen of HUD verplaatsen gebruiken."],
+"pl_pl": ["Pozycja X", "Pozycja Y", "Gdzie HUD znajduje się na ekranie. Możesz też przeciągnąć podgląd lub użyć Przesuń HUD."],
+"tr_tr": ["X Konumu", "Y Konumu", "HUD'un ekrandaki yeri. Önizlemeyi sürükleyebilir veya HUD'u Taşı'yı kullanabilirsin."],
+"ru_ru": ["Позиция X", "Позиция Y", "Где находится HUD на экране. Можно также перетащить превью или использовать «Переместить HUD»."],
+"uk_ua": ["Позиція X", "Позиція Y", "Де розташований HUD на екрані. Також можна перетягнути превʼю або скористатися «Перемістити HUD»."],
+"zh_cn": ["X 位置", "Y 位置", "HUD 在屏幕上的位置。也可以拖动预览，或使用“移动 HUD”。"],
+"ja_jp": ["X 位置", "Y 位置", "画面上の HUD の位置。プレビューをドラッグするか「HUD を移動」も使えます。"],
+"ko_kr": ["X 위치", "Y 위치", "화면에서 HUD의 위치입니다. 미리보기를 드래그하거나 HUD 이동을 사용할 수도 있습니다."],
+}
+
+def entries(v, lang):
     t = dict(zip(KEYS, v))
     out = {
         "key.categories.keycps.keybinds": t["cat"],
@@ -212,6 +230,11 @@ def entries(v):
         if "t_" + k in t:
             out["keycps.config." + k + ".tooltip"] = t["t_" + k]
     out["keycps.config.color.tooltip"] = t["t_color"]
+    px, py, tip = POS[lang]
+    out["keycps.config.pos_x"] = px
+    out["keycps.config.pos_x.tooltip"] = tip
+    out["keycps.config.pos_y"] = py
+    out["keycps.config.pos_y.tooltip"] = tip
     out["keycps.move.title"] = t["move"]
     out["keycps.move.hint"] = t["move_hint"]
     out["keycps.welcome"] = t["welcome"]
@@ -222,5 +245,5 @@ def entries(v):
 d = pathlib.Path(__file__).resolve().parent.parent / "src/main/resources/assets/keycps/lang"
 for lang, v in L.items():
     assert len(v) == len(KEYS), (lang, len(v), len(KEYS))
-    (d / f"{lang}.json").write_text(json.dumps(entries(v), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (d / f"{lang}.json").write_text(json.dumps(entries(v, lang), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 print(len(L), "languages written")

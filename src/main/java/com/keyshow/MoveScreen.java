@@ -5,12 +5,8 @@ import net.minecraft.network.chat.Component;
 
 /** Drag the HUD with the mouse; it snaps to the screen edges and centre. Esc saves. */
 public class MoveScreen extends BaseScreen {
-    private static final int SNAP = 6;
-    private static final int MARGIN = 4;
     private final Screen parent;
-    private boolean dragging;
-    private double grabX;
-    private double grabY;
+    private final HudDrag drag = new HudDrag();
 
     public MoveScreen(Screen parent) {
         super(Component.translatable("keycps.move.title"));
@@ -29,7 +25,7 @@ public class MoveScreen extends BaseScreen {
         int y1 = KeyShowHud.lastY - 1;
         int x2 = KeyShowHud.lastX + KeyShowHud.lastW + 1;
         int y2 = KeyShowHud.lastY + KeyShowHud.lastH + 1;
-        int col = dragging ? 0xFFFFFF55 : 0xFF55FF55;
+        int col = drag.dragging() ? 0xFFFFFF55 : 0xFF55FF55;
         c.fill(x1, y1, x2, y1 + 1, col);
         c.fill(x1, y2 - 1, x2, y2, col);
         c.fill(x1, y1, x1 + 1, y2, col);
@@ -39,37 +35,17 @@ public class MoveScreen extends BaseScreen {
 
     @Override
     protected boolean onMousePress(double mx, double my) {
-        if (mx >= KeyShowHud.lastX && mx < KeyShowHud.lastX + KeyShowHud.lastW
-                && my >= KeyShowHud.lastY && my < KeyShowHud.lastY + KeyShowHud.lastH) {
-            dragging = true;
-            grabX = mx - KeyShowHud.lastX;
-            grabY = my - KeyShowHud.lastY;
-            return true;
-        }
-        return false;
+        return drag.press(mx, my);
     }
 
     @Override
     protected boolean onMouseDrag(double mx, double my) {
-        if (!dragging) {
-            return false;
-        }
-        KeyShowConfig cfg = KeyShowConfig.get();
-        cfg.x = snap((int) Math.round(mx - grabX), KeyShowHud.lastW, this.width);
-        cfg.y = snap((int) Math.round(my - grabY), KeyShowHud.lastH, this.height);
-        return true;
+        return drag.drag(mx, my, this.width, this.height);
     }
 
     @Override
     protected void onMouseRelease() {
-        dragging = false;
-    }
-
-    private static int snap(int pos, int size, int screen) {
-        if (Math.abs(pos - MARGIN) < SNAP) return MARGIN;
-        if (Math.abs(pos + size - (screen - MARGIN)) < SNAP) return screen - MARGIN - size;
-        if (Math.abs(pos + size / 2 - screen / 2) < SNAP) return screen / 2 - size / 2;
-        return pos;
+        drag.release();
     }
 
     @Override

@@ -103,7 +103,8 @@ public class KeyTracker {
         long now = System.nanoTime();
         for (Tracked t : ALL) {
             InputConstants.Key k = boundKey(t.mapping());
-            if ((k.getType() == InputConstants.Type.MOUSE) == mouse && k.getValue() == value) {
+            // An unbound key would otherwise match keys the game doesn't know (code -1), like some media keys.
+            if (!k.equals(InputConstants.UNKNOWN) && (k.getType() == InputConstants.Type.MOUSE) == mouse && k.getValue() == value) {
                 t.rate.record(now);
             }
         }

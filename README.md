@@ -20,7 +20,7 @@ clicks-per-second count, so you can watch your click speed while you play instea
 - **Settings screen** — press **Right Shift** in game, or use **Mod Menu**. Size, colours,
   background, opacity, rounded corners, shadow, rainbow text, CPS warning and more.
 - **Movable HUD** — starts in the top-left corner; press *Move HUD* and drag it anywhere
-  (snaps to edges and centre).
+  (snaps to edges and centre), or set *X / Y Position* in the settings.
 - **14 languages.**
 
 ## Download
